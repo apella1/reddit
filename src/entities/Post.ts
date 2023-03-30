@@ -1,16 +1,25 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
+import "reflect-metadata";
+import { Entity, PrimaryKey, Property, TimeType } from "@mikro-orm/core";
+import { Field, Int, ObjectType } from "type-graphql";
 
+// * stacking decorators
+// using @Field to convert to graphql types
+@ObjectType()
 @Entity()
 export class Post {
+    @Field(() => Int)
     @PrimaryKey()
-    id!: number;
-    
-    @Property({type: "date"})
-    createdAt: new Date();
-    
-    @Property({type: "date", onUpdate: () => new Date()})
-    updatedAt: new Date();
-    
-    @Property({type: "text"})
-    title!: string;
+    id!: number
+
+    @Field(() => String)
+    @Property({ type: TimeType })
+    createdAt: string
+
+    @Field(() => String)
+    @Property({ type: TimeType, onUpdate: () => new Date() })
+    updatedAt: string
+
+    @Field()
+    @Property({ type: "text" })
+    title!: string
 }

@@ -9,10 +9,12 @@ const path_1 = __importDefault(require("path"));
 exports.default = {
     migrations: {
         path: path_1.default.join(__dirname, "./migrations"),
-        pattern: /^[\w-]/
+        glob: '!(*.d).{js,ts}',
     },
     entities: [Post_1.Post],
     dbName: "reddit",
+    user: "apella",
+    password: "shootersrev",
     type: "postgresql",
     debug: !constants_1.__prod__
 };
