@@ -1,3 +1,4 @@
+import { UserResolver } from './resolvers/user';
 import "reflect-metadata";
 import { PostResolver } from './resolvers/post';
 import { HelloResolver } from './resolvers/hello';
@@ -15,8 +16,8 @@ const main = async () => {
     const orm = await MikroORM.init<PostgreSqlDriver>({
         entities: ['./dist/entities'], // path to your JS entities (dist), relative to `baseDir`
         dbName: 'reddit',
-        // user: "apella",
-        // password: "shootersrev",
+        user: "apella",
+        password: "shootersrev",
         type: 'postgresql',
     }) // connect to the database
     await orm.getMigrator().up(); // run migrations
@@ -25,10 +26,10 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [HelloResolver, PostResolver],
+            resolvers: [HelloResolver, PostResolver, UserResolver],
             validate: false,
         }),
-        context: () => ({em: orm.em})
+        context: () => ({ em: orm.em })
     })
 
     app.use(

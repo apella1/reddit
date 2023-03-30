@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc & node dist/index.js",
     "dev": "tsc -w & nodemon dist/index.js",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "migrate": "mikro-orm migration:create"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "@mikro-orm/core": "^5.6.15",
     "@mikro-orm/migrations": "^5.6.15",
     "@mikro-orm/postgresql": "^5.6.15",
+    "argon2": "^0.30.3",
     "body-parser": "^1.20.2",
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
