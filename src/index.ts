@@ -1,5 +1,5 @@
-import { UserResolver } from './resolvers/user';
 import "reflect-metadata";
+import { UserResolver } from './resolvers/user';
 import { PostResolver } from './resolvers/post';
 import { HelloResolver } from './resolvers/hello';
 import { __prod__ } from './constants';
@@ -17,20 +17,24 @@ const main = async () => {
         entities: ['./dist/entities'], // path to your JS entities (dist), relative to `baseDir`
         dbName: 'reddit',
         user: "apella",
-        password: "shootersrev",
+        password: "m124@neezy",
         type: 'postgresql',
     }) // connect to the database
     await orm.getMigrator().up(); // run migrations
 
     const app = express();
 
-    const apolloServer = new ApolloServer({
-        schema: await buildSchema({
-            resolvers: [HelloResolver, PostResolver, UserResolver],
-            validate: false,
-        }),
-        context: () => ({ em: orm.em })
+    const schema = await buildSchema({
+        resolvers: [HelloResolver, PostResolver, UserResolver],
+        validate: false,
     })
+
+
+    const apolloServer = new ApolloServer({
+        schema,
+    })
+    
+    await apolloServer.start()
 
     app.use(
         cors<cors.CorsRequest>(),

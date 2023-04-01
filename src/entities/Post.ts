@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Entity, PrimaryKey, Property, TimeType } from "@mikro-orm/core";
+import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, Int, ObjectType } from "type-graphql";
 
 // * stacking decorators
@@ -11,13 +11,13 @@ export class Post {
     @PrimaryKey()
     id!: number
 
-    @Field(() => String)
-    @Property({ type: TimeType })
-    createdAt: string
+    @Field(() => Date)
+    @Property({ type: Date })
+    createdAt: Date
 
     @Field(() => String)
-    @Property({ type: TimeType, onUpdate: () => new Date() })
-    updatedAt: string
+    @Property({ type: Date, onUpdate: () => new Date() })
+    updatedAt: Date
 
     @Field()
     @Property({ type: "text" })

@@ -9,7 +9,7 @@ export default {
     entities: ['./dist/entities'],
     dbName: "reddit",
     user: "apella",
-    password: "shootersrev",
+    password: "m124@neezy",
     type: "postgresql",
     debug: !__prod__
 };

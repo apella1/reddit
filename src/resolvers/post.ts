@@ -24,7 +24,7 @@ export class PostResolver {
         @Arg("title", () => String, { nullable: true }) title: string,
         @Ctx() { em }: MyContext
     ): Promise<Post> {
-        const post = em.create(Post, { title })
+        const post = em.create(Post, { title, createdAt: new Date(), updatedAt: new Date() })
         await em.persistAndFlush(post)
         return post
     }
@@ -46,7 +46,7 @@ export class PostResolver {
         return post
     }
 
-    @Mutation()
+    @Mutation(() => Boolean)
     async deletePost(
         @Arg("id", () => Boolean) id: number,
         @Ctx() { em }: MyContext
