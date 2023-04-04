@@ -79,7 +79,23 @@ export class UserResolver {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    await em.persistAndFlush(user);
+
+    try {
+      await em.persistAndFlush(user);
+    } catch (err) {
+      // checking if a user with the username exists
+      // the code was inferred from the error message
+      if (err.code == "23505") {
+        return {
+          errors: [
+            {
+              field: "username",
+              message: "username exists",
+            },
+          ],
+        };
+      }
+    }
     return { user };
   }
 
