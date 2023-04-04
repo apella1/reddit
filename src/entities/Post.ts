@@ -13,11 +13,11 @@ export class Post {
 
     @Field(() => Date)
     @Property({ type: Date })
-    createdAt: Date
+    createdAt: Date = new Date()
 
     @Field(() => String)
     @Property({ type: Date, onUpdate: () => new Date() })
-    updatedAt: Date
+    updatedAt: Date = new Date()
 
     @Field()
     @Property({ type: "text" })

@@ -10,16 +10,10 @@ import { buildSchema } from 'type-graphql';
 import { expressMiddleware } from '@apollo/server/express4';
 import cors from "cors";
 import { json } from 'body-parser';
-import { PostgreSqlDriver } from "@mikro-orm/postgresql";
+import config from "./mikro-orm.config";
 
 const main = async () => {
-    const orm = await MikroORM.init<PostgreSqlDriver>({
-        entities: ['./dist/entities'], // path to your JS entities (dist), relative to `baseDir`
-        dbName: 'reddit',
-        user: "apella",
-        password: "m124@neezy",
-        type: 'postgresql',
-    }) // connect to the database
+    const orm = await MikroORM.init(config) // connect to the database
     await orm.getMigrator().up(); // run migrations
 
     const app = express();
@@ -42,8 +36,8 @@ const main = async () => {
         expressMiddleware(apolloServer)
     );
 
-    app.listen(5000, () => {
-        console.log(`Server started on port 5000`)
+    app.listen(3000, () => {
+        console.log(`Server started on port 3000`)
     })
 }
 

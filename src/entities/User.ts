@@ -14,11 +14,11 @@ export class User {
 
     @Field(() => Date)
     @Property({ type: "date" })
-    createdAt: Date
+    createdAt: Date = new Date();
 
     @Field(() => Date)
     @Property({ type: "date", onUpdate: () => new Date()})
-    updatedAt: Date
+    updatedAt: Date = new Date()
 
 
     @Field()

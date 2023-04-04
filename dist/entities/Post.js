@@ -14,6 +14,10 @@ require("reflect-metadata");
 const core_1 = require("@mikro-orm/core");
 const type_graphql_1 = require("type-graphql");
 let Post = class Post {
+    constructor() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 };
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.Int),

@@ -14,14 +14,9 @@ const type_graphql_1 = require("type-graphql");
 const express4_1 = require("@apollo/server/express4");
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = require("body-parser");
+const mikro_orm_config_1 = __importDefault(require("./mikro-orm.config"));
 const main = async () => {
-    const orm = await core_1.MikroORM.init({
-        entities: ['./dist/entities'],
-        dbName: 'reddit',
-        user: "apella",
-        password: "m124@neezy",
-        type: 'postgresql',
-    });
+    const orm = await core_1.MikroORM.init(mikro_orm_config_1.default);
     await orm.getMigrator().up();
     const app = (0, express_1.default)();
     const schema = await (0, type_graphql_1.buildSchema)({
@@ -33,8 +28,8 @@ const main = async () => {
     });
     await apolloServer.start();
     app.use((0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(apolloServer));
-    app.listen(5000, () => {
-        console.log(`Server started on port 5000`);
+    app.listen(3000, () => {
+        console.log(`Server started on port 3000`);
     });
 };
 main().catch((err) => {

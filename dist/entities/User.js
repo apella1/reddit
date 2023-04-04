@@ -16,6 +16,10 @@ const core_2 = require("@mikro-orm/core");
 const core_3 = require("@mikro-orm/core");
 const type_graphql_1 = require("type-graphql");
 let User = class User {
+    constructor() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 };
 __decorate([
     (0, type_graphql_1.Field)(),
